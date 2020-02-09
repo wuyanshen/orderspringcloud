@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.southwind.mapper.TMenuMapper">
+  <resultMap id="BaseResultMap" type="com.southwind.entity.TMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" property="name" />
+    <result column="price" property="price" />
+    <result column="flavor" property="flavor" />
+    <association property="tType" javaType="com.southwind.entity.TType" select="com.southwind.mapper.TTypeMapper.findById" column="tid">
+      <id property="id" column="id"/>
+      <result property="name" column="tname"/>
+    </association>
+  </resultMap>
+
+  <resultMap id="result" type="com.southwind.common.Result">
+    <result column="code" property="code"/>
+    <result column="msg" property="msg"/>
+    <result column="count" property="count"/>
+    <result column="tType" property="data"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select id,
+      name,
+      price,
+      flavor,
+      tid
+    from t_menu
+  </select>
+
+  <select id="findMenuById" resultMap="BaseResultMap">
+    select * from t_menu where id = #{id}
+  </select>
+
+  <select id="addMenu" parameterType="com.southwind.entity.TMenu" resultType="java.lang.Boolean">
+    insert into t_menu (name,price,flavor,tid) values(#{name},#{price},#{flavor},#{tType.id})
+  </select>
+
+  <select id="updateMenu" parameterType="com.southwind.entity.TMenu" resultType="java.lang.Boolean">
+    update t_menu set name=#{name},price=#{price},flavor=#{flavor},tid=#{tType.id} where id=#{id}
+  </select>
+</mapper>

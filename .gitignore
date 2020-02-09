@@ -1,0 +1,6 @@
+# Project exclude paths
+/client/target/
+/configserver/target/
+/eurekaserver/target/
+/menu/target/
+/order/target/

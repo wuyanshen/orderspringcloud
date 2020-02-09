@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: client
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        service-id: configserver
+        enabled: true
+      fail-fast: true
+
+  thymeleaf:
+    cache: false
+
